@@ -86,7 +86,7 @@
                                                 <div class="form-group">
                                                     <label>Gender</label><br>
                                                     <label th:each="gender : ${genders}" class="custom-control custom-radio custom-control-inline">
-                                                        <input th:field="*{gender}" th:value="${gender.getValue()}" type="radio" name="radio-inline" class="custom-control-input"><span th:text="${gender.getValue()}" class="custom-control-label"></span>
+                                                        <input th:field="*{gender}" th:value="${gender}" type="radio" name="radio-inline" class="custom-control-input"><span th:text="${gender.value}" class="custom-control-label"></span>
                                                     </label>
                                                     <!--<label class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Female</span>
@@ -161,8 +161,8 @@
                                                 <td th:text="${existingUser.phone}" ></td>
                                                 <td th:text="${existingUser.role.description}" ></td>
                                                 <td class="actions">
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                    <a th:href="@{/user/update/{username}(username=${existingUser.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a th:href="@{/user/delete/{username}(username=${existingUser.userName})}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
 

@@ -9,10 +9,10 @@ public abstract class AbstractMapService <T,ID>{
 
     public Map<ID,T> map = new HashMap<>(); // DB
 
-    T save(ID id, T object){
-        map.put(id, object);
+    T save(ID id, T t){
+        map.put(id, t);
 
-        return object;
+        return t;
     }
 
     T findById(ID id){
@@ -23,6 +23,9 @@ public abstract class AbstractMapService <T,ID>{
     }
     void deleteById(ID id){
         map.remove(id);
+    }
+    void update(ID id, T t){
+        map.put(id,t);
     }
 
 }
