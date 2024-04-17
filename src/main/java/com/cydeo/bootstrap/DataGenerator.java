@@ -1,13 +1,18 @@
 package com.cydeo.bootstrap;
 
+import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Gender;
+import com.cydeo.enums.ProjectStatus;
+import com.cydeo.service.ProjectService;
 import com.cydeo.service.RoleService;
 import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Component
@@ -15,6 +20,7 @@ public class DataGenerator implements CommandLineRunner {
 
     private final RoleService roleService;
     private final UserService userService;
+    private final ProjectService projectService;
     @Override
     public void run(String... args) throws Exception {
 
@@ -52,6 +58,9 @@ public class DataGenerator implements CommandLineRunner {
         userService.save(user7);
         userService.save(user8);
 
+        ProjectDTO project1 = new ProjectDTO("Project Page", "PP-001", user4, LocalDate.of(2024,01,01), LocalDate.of(2024,02,05), "Project needs to be checked by 05ud123", ProjectStatus.IN_PROGRESS);
+
+        projectService.save(project1);
 
     }
 }
