@@ -80,5 +80,16 @@ public class ProjectController {
         return "redirect:/project/create";
     }
 
+    @GetMapping("manager/project-status")
+    public String getProjectStatus(Model model){
+
+        UserDTO manager = userService.findById("john@cydeo.com");
+        List<ProjectDTO> projects = projectService.getCountedListOfProjectDTO(manager);
+
+        model.addAttribute("projects", projects);
+
+        return "manager/project-status";
+    }
+
 
 }

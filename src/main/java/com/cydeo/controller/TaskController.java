@@ -54,10 +54,18 @@ public class TaskController {
         return "task/update";
     }
 
-    @PostMapping("/update/{taskId}")
+    /*@PostMapping("/update/{taskId}")
     public String updateTask(@ModelAttribute TaskDTO task, @PathVariable UUID taskId){
 
         task.setTaskId(taskId);
+        taskService.update(task);
+
+        return "redirect:/task/create";
+    }*/
+
+    @PostMapping("/update/{taskId}")
+    public String updateTask(@ModelAttribute TaskDTO task){
+
         taskService.update(task);
 
         return "redirect:/task/create";
