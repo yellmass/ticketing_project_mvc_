@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO, UUID> implements TaskService {
@@ -48,6 +49,30 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO, UUID> implement
         if (taskDTO.getAssignedDate()==null){
             taskDTO.setAssignedDate(super.findById(taskDTO.getTaskId()).getAssignedDate());
         }
+        super.update(taskDTO.getTaskId(),taskDTO);
+    }
+
+    @Override
+    public List<TaskDTO> findPendingTasks() {
+        return findAll().stream()
+                .filter(task->!task.getTaskStatus().equals(TaskStatus.COMPLETED))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDTO> findCompletedTasks() {
+        return findAll().stream()
+                .filter(task->task.getTaskStatus().equals(TaskStatus.COMPLETED))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateEmployeeTask(TaskDTO taskDTO) {
+
+        if (taskDTO.getAssignedDate()==null){
+            taskDTO.setAssignedDate(super.findById(taskDTO.getTaskId()).getAssignedDate());
+        }
+
         super.update(taskDTO.getTaskId(),taskDTO);
     }
 }

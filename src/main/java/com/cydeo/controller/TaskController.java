@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.enums.TaskStatus;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
@@ -78,4 +79,39 @@ public class TaskController {
 
         return "redirect:/task/create";
     }
+
+    @GetMapping("/employee/pending-tasks")
+    public String getPendingTasks(Model model){
+
+        model.addAttribute("tasks",taskService.findPendingTasks());
+
+        return "task/pending-tasks";
+    }
+
+    @GetMapping("/employee/archive")
+    public String getArchive(Model model){
+
+        model.addAttribute("tasks", taskService.findCompletedTasks());
+
+        return "/task/archive";
+    }
+
+    @GetMapping("/employee/edit/{taskId}")
+    public String editEmployeeTask(@PathVariable UUID taskId, Model model){
+
+        model.addAttribute("task", taskService.findById(taskId));
+        model.addAttribute("statuses", TaskStatus.values());
+        model.addAttribute("tasks", taskService.findPendingTasks());
+
+        return "task/status-update";
+    }
+
+    @PostMapping("employee/update/{taskId}")
+    public String updateEmployeeTask(@ModelAttribute TaskDTO task){
+
+        taskService.updateEmployeeTask(task);
+
+        return "redirect:/task/employee/pending-tasks";
+    }
+
 }
