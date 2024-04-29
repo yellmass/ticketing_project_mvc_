@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String insertUser(@Valid @ModelAttribute UserDTO user, BindingResult bindingResult, Model model) {
+    public String insertUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()){
 
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@Valid @ModelAttribute UserDTO user){
+    public String updateUser(@Valid @ModelAttribute("user") UserDTO user){
 
         userService.update(user);
 

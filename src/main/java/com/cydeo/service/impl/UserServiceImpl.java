@@ -31,6 +31,10 @@ public class UserServiceImpl extends AbstractMapService<UserDTO,String> implemen
 
     @Override
     public void update(UserDTO userDTO) {
+        String password = findById(userDTO.getUserName()).getPassword();
+        String confirmPassword = findById(userDTO.getUserName()).getConfirmPassword();
+        userDTO.setPassword(password);
+        userDTO.setConfirmPassword(confirmPassword);
         super.update(userDTO.getUserName(), userDTO);
     }
 
